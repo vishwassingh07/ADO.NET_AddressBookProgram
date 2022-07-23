@@ -8,7 +8,7 @@ namespace ADO.NET_AddressBookProgram
             Console.WriteLine("Welcome To The Adress Book Program With ADO.NET ");
             AddressBookRepository repository = new AddressBookRepository(); 
             bool end = true;
-            Console.WriteLine("1. Create DataBase For AddressBook\n2. End The Program");
+            Console.WriteLine("1. Create DataBase For AddressBook\n2. Create Table For AddressBook\n3. End The Program");
             while (true)
             {
                 Console.WriteLine("Choose an option to execute :");
@@ -19,6 +19,9 @@ namespace ADO.NET_AddressBookProgram
                         repository.CreateAddressBookDataBase();
                         break;
                     case 2:
+                        repository.CreateTableInAddressBook();
+                        break;
+                    case 3:
                         end = false;
                         break;
                     default:
