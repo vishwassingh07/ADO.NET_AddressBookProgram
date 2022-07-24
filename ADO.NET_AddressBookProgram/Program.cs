@@ -10,7 +10,8 @@ namespace ADO.NET_AddressBookProgram
             AddressBookModel model = new AddressBookModel();
             bool end = true;
             Console.WriteLine("1. Create DataBase For AddressBook\n2. Create Table For AddressBook\n3." +
-                " Insert Contact Details In The Table\n4. Update Contact Details\n5. Delete Contact Details\n6. End The Program");
+                " Insert Contact Details In The Table\n4. Update Contact Details\n5. Delete Contact Details\n6. " +
+                "Retrieve Contact By City And State\n7. End The Program");
             while (true)
             {
                 Console.WriteLine("Choose an option to execute :");
@@ -46,6 +47,9 @@ namespace ADO.NET_AddressBookProgram
                         repository.DeleteContactFromAddressBook(model);
                         break;
                     case 6:
+                        repository.RetriveContactByCityOrState(model);
+                        break;
+                    case 7:
                         end = false;
                         break;
                     default:

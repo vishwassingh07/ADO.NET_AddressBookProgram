@@ -177,5 +177,50 @@ namespace ADO.NET_AddressBookProgram
                 connection.Close();
             }
         }
+        /// <summary>
+        /// UC6- Retrieve Contact By City And State
+        /// </summary>
+        /// <param name="model"></param>
+        public void RetriveContactByCityOrState(AddressBookModel model)
+        {
+            try
+            {
+                //Giving Path For Connection
+                connection = new SqlConnection(connectionString);
+                //Representing Connection To SQL Server DataBase
+                string query = "Select * From AddressBookAdo Where City = 'Chennai' And State = 'Tamilnadu';";
+                SqlCommand command = new SqlCommand(query , connection);
+                //Opening Connection
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        model.ID = Convert.ToInt32(reader["ID"] == DBNull.Value ? default : reader["ID"]);
+                        model.FirstName = Convert.ToString(reader["FirstName"] == DBNull.Value ? default : reader["FirstName"]);
+                        model.LastName = Convert.ToString(reader["LastName"] == DBNull.Value ? default : reader["LastName"]);
+                        model.Address = Convert.ToString(reader["Address"] == DBNull.Value ? default : reader["Address"]);
+                        model.City = Convert.ToString(reader["City"] == DBNull.Value ? default : reader["City"]);
+                        model.State = Convert.ToString(reader["State"] == DBNull.Value ? default : reader["State"]);
+                        model.Zip = Convert.ToInt32(reader["Zip"] == DBNull.Value ? default : reader["Zip"]);
+                        model.PhoneNumber = Convert.ToInt64(reader["Phone"] == DBNull.Value ? default : reader["Phone"]);
+                        model.Email = Convert.ToString(reader["Email"] == DBNull.Value ? default : reader["Email"]);
+                        Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8}" , model.ID, model.FirstName, model.LastName, model.Address
+                            ,model.City,model.State, model.Zip, model.PhoneNumber, model.Email);
+                    }
+                }
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                //Closing Connection
+                connection.Close();
+            }
+        }
     }
 }
