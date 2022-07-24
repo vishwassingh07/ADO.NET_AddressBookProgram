@@ -60,12 +60,19 @@ namespace ADO.NET_AddressBookProgram
         public const string connectionString = @"Data Source=(localdb)\ProjectModels;Initial Catalog=AddressBookAdo;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         SqlConnection connection = null;
         //Opening Connection";
+
+        /// <summary>
+        /// Inserting Contact Into AddressBook
+        /// </summary>
+        /// <param name="model"></param>
         public void InsertContactInAddressBook(AddressBookModel model)
         {
             try
             {
-                using(connection = new SqlConnection(connectionString))
+                //Giving Path For Connection
+                using (connection = new SqlConnection(connectionString))
                 {
+                    //Representing Connection To SQL Server DataBase
                     SqlCommand command = new SqlCommand("spAddressBook", connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@FirstName", model.FirstName);
@@ -76,6 +83,7 @@ namespace ADO.NET_AddressBookProgram
                     command.Parameters.AddWithValue("@Zip", model.Zip);
                     command.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
                     command.Parameters.AddWithValue("@Email", model.Email);
+                    //Opening Connection
                     connection.Open ();
                     int result = command.ExecuteNonQuery();
                     if (result != 0)
@@ -91,6 +99,45 @@ namespace ADO.NET_AddressBookProgram
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+        /// <summary>
+        /// UC4 - Updating Existing Contact In AddressBook
+        /// </summary>
+        /// <param name="model"></param>
+        public void UpdateContactInAddressBook(AddressBookModel model)
+        {
+            try
+            {
+                //Giving Path For Connection
+                connection = new SqlConnection(connectionString);
+                //Representing Connection To SQL Server DataBase
+                SqlCommand command = new SqlCommand("spUpdateContactDetails", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                command.Parameters.AddWithValue("City", model.City);
+                command.Parameters.AddWithValue("State", model.State);
+                //Opening Connection
+                connection.Open();
+                int result = command.ExecuteNonQuery();
+                if (result != 0)
+                {
+                    Console.WriteLine("Contact Updated Successfully");
+                }
+                else
+                {
+                    Console.WriteLine("Couldn't Update");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            //Finally Block To Initialize The Garbage Collector
+            finally
+            {
+                //Closing The Connection
+                connection.Close ();
             }
         }
     }

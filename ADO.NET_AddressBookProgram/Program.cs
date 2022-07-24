@@ -6,10 +6,11 @@ namespace ADO.NET_AddressBookProgram
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome To The Adress Book Program With ADO.NET ");
-            AddressBookRepository repository = new AddressBookRepository(); 
+            AddressBookRepository repository = new AddressBookRepository();
+            AddressBookModel model = new AddressBookModel();
             bool end = true;
             Console.WriteLine("1. Create DataBase For AddressBook\n2. Create Table For AddressBook\n3." +
-                " Insert Contact Details In The Table\n4. End The Program");
+                " Insert Contact Details In The Table\n4. Update Contact Details\n5. End The Program");
             while (true)
             {
                 Console.WriteLine("Choose an option to execute :");
@@ -35,6 +36,12 @@ namespace ADO.NET_AddressBookProgram
                         repository.InsertContactInAddressBook(insert);
                         break;
                     case 4:
+                        model.FirstName = "Siddhant";
+                        model.City = "Chennai";
+                        model.State = "Tamilnadu";
+                        repository.UpdateContactInAddressBook(model);
+                        break;
+                    case 5:
                         end = false;
                         break;
                     default:
