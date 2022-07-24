@@ -8,7 +8,8 @@ namespace ADO.NET_AddressBookProgram
             Console.WriteLine("Welcome To The Adress Book Program With ADO.NET ");
             AddressBookRepository repository = new AddressBookRepository(); 
             bool end = true;
-            Console.WriteLine("1. Create DataBase For AddressBook\n2. Create Table For AddressBook\n3. End The Program");
+            Console.WriteLine("1. Create DataBase For AddressBook\n2. Create Table For AddressBook\n3." +
+                " Insert Contact Details In The Table\n4. End The Program");
             while (true)
             {
                 Console.WriteLine("Choose an option to execute :");
@@ -22,6 +23,18 @@ namespace ADO.NET_AddressBookProgram
                         repository.CreateTableInAddressBook();
                         break;
                     case 3:
+                        AddressBookModel insert = new AddressBookModel();
+                        insert.FirstName = "Vishwas";
+                        insert.LastName = "Singh";
+                        insert.Address = "Marathalli";
+                        insert.City = "Bangalore";
+                        insert.State = "Karnataka";
+                        insert.Zip = 560066;
+                        insert.PhoneNumber = 947856314;
+                        insert.Email = "baghel@gmail.com";
+                        repository.InsertContactInAddressBook(insert);
+                        break;
+                    case 4:
                         end = false;
                         break;
                     default:
