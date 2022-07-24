@@ -140,5 +140,42 @@ namespace ADO.NET_AddressBookProgram
                 connection.Close ();
             }
         }
+        /// <summary>
+        /// UC5 - Deleting Contact From AddressBook
+        /// </summary>
+        /// <param name="model"></param>
+        public void DeleteContactFromAddressBook(AddressBookModel model)
+        {
+            try
+            {
+                //Giving Path For Connection
+                connection = new SqlConnection(connectionString);
+                //Representing Connection To SQL Server DataBase
+                SqlCommand command = new SqlCommand("spDeleteConact", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                //Opening Connection
+                connection.Open();
+                int result = command.ExecuteNonQuery();
+                if (result != 0)
+                {
+                    Console.WriteLine("Successfully Deleted Contact Details");
+                }
+                else
+                {
+                    Console.WriteLine("Could Not Delete");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            //Finally Block To Initialize The Garbage Collector
+            finally
+            {
+                //Closing The Connection
+                connection.Close();
+            }
+        }
     }
 }
